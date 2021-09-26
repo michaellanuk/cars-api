@@ -1,7 +1,7 @@
 const express = require('express')
 const path = require('path')
 
-const sequelize = require('./config/database')
+const sequelize = require('./db/config/database')
 
 // Test database connection
 try {
@@ -17,7 +17,7 @@ app.use(express.json())
 
 app.get('/', (req, res) => res.send('Cars API index'))
 
-app.use('/cars', require('./routes/cars'))
+app.use('/cars', require('./routes/carRoutes'))
 
 const PORT = process.env.PORT || 5000
 app.listen(PORT, console.log(`Application listening on http://localhost:${PORT}`))
