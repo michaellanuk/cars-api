@@ -15,7 +15,11 @@ router.get('/', (req, res) => {
 router.get('/id/:id', (req, res) => {
     Car.findByPk(req.params.id)
         .then(cars => {
-            res.send(cars)
+            if (cars !== null) {
+                res.send(cars)
+            } else {
+                res.send('No entries found')
+            }
         })
         .catch(err => console.log(err))
     }
@@ -34,7 +38,11 @@ router.get('/search', (req, res) => {
             where: query
         })
         .then(cars => {
-            res.send(cars)
+            if (cars.length !== 0) {
+                res.send(cars)
+            } else {
+                res.send('No entries found')
+            }
         })
         .catch(err => console.log(err))
     }
@@ -45,10 +53,10 @@ router.post('/add', (req, res) => {
     let errors = []
 
     if (!make) {
-        errors.push("make")
+        errors.push('make')
     }
     if (!model) {
-        errors.push("model")
+        errors.push('model')
     }
 
     if (errors.length > 0) {
