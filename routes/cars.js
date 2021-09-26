@@ -12,6 +12,32 @@ router.get('/', (req, res) => {
     }
 )
 
+router.get('/id/:id', (req, res) => {
+    Car.findAll({
+            where: {
+                id: req.params.id
+            }
+        })
+        .then(cars => {
+            res.send(cars)
+        })
+        .catch(err => console.log(err))
+    }
+)
+
+router.get('/make/:make', (req, res) => {
+    Car.findAll({
+            where: {
+                make: req.params.make
+            }
+        })
+        .then(cars => {
+            res.send(cars)
+        })
+        .catch(err => console.log(err))
+    }
+)
+
 router.post('/add', (req, res) => {
     let { make, model } = req.body
     let errors = []
