@@ -13,11 +13,7 @@ router.get('/', (req, res) => {
 )
 
 router.get('/id/:id', (req, res) => {
-    Car.findAll({
-            where: {
-                id: req.params.id
-            }
-        })
+    Car.findByPk(req.params.id)
         .then(cars => {
             res.send(cars)
         })
@@ -54,12 +50,7 @@ router.post('/add', (req, res) => {
         return
     }
 
-    Car.create({
-            make,
-            model,
-            createdAt: new Date(),
-            updatedAt: new Date()
-        })
+    Car.create({ make, model })
         .then(car => res.redirect('/cars'))
         .catch(err => console.log(err))
 })
