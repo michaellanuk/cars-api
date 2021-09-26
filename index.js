@@ -5,15 +5,17 @@ const sequelize = require('./config/database')
 
 // Test database connection
 try {
-    sequelize.authenticate();
-    console.log('Database connected.');
+    sequelize.authenticate()
+    console.log('Database connected.')
 } catch (error) {
-    console.error('Unable to connect to the database', error);
+    console.error('Unable to connect to the database', error)
 }
 
 const app = express()
 
-app.get('/', (req, res) => res.send('Cars API'))
+app.get('/', (req, res) => res.send('Cars API index'))
+
+app.use('/cars', require('./routes/cars'))
 
 const PORT = process.env.PORT || 5000
 app.listen(PORT, console.log(`Application listening on http://localhost:${PORT}`))
