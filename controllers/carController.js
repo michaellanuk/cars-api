@@ -1,18 +1,15 @@
-const express = require('express')
-const router = express.Router()
-const db = require('../config/database')
 const Car = require('../db/models/car')
 
-router.get('/', (req, res) => {
+const getAllCars = (req, res) => {
     Car.findAll()
         .then(cars => {
             res.send(cars)
         })
         .catch(err => console.log(err))
-    }
-)
+}
 
-router.get('/id/:id', (req, res) => {
+
+const getCarById = (req, res) => {
     Car.findByPk(req.params.id)
         .then(cars => {
             if (cars !== null) {
@@ -22,10 +19,10 @@ router.get('/id/:id', (req, res) => {
             }
         })
         .catch(err => console.log(err))
-    }
-)
+}
 
-router.get('/search', (req, res) => {
+
+const getCarByMakeModel = (req, res) => {
     var query = {}
     if (req.query.make) {
         query.make = req.query.make
@@ -45,10 +42,9 @@ router.get('/search', (req, res) => {
             }
         })
         .catch(err => console.log(err))
-    }
-)
+}
 
-router.post('/add', (req, res) => {
+const addNewCar = (req, res) => {
     let { make, model } = req.body
     let errors = []
 
@@ -67,9 +63,9 @@ router.post('/add', (req, res) => {
     Car.create({ make, model })
         .then(car => res.redirect('/cars'))
         .catch(err => console.log(err))
-})
+}
 
-router.delete('/delete/:id', (req, res) => {
+const deleteCarById = (req, res) => {
     Car.destroy({
             where: {
                 id: req.params.id
@@ -77,6 +73,12 @@ router.delete('/delete/:id', (req, res) => {
         })
         .then(car => res.redirect('/cars'))
         .catch(err => console.log(err))
-})
+}
 
-module.exports = router
+module.exports = {
+    getAllCars,
+    getCarById,
+    getCarByMakeModel,
+    addNewCar,
+    deleteCarById
+}
