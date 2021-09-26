@@ -54,11 +54,21 @@ router.post('/add', (req, res) => {
     }
 
     Car.create({
-        make,
-        model,
-        createdAt: new Date(),
-        updatedAt: new Date()
-    })
+            make,
+            model,
+            createdAt: new Date(),
+            updatedAt: new Date()
+        })
+        .then(car => res.redirect('/cars'))
+        .catch(err => console.log(err))
+})
+
+router.delete('delete/:id', (req, res) => {
+    Car.destroy({
+            where: {
+                id: req.params.id
+            }
+        })
         .then(car => res.redirect('/cars'))
         .catch(err => console.log(err))
 })
