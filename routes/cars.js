@@ -25,10 +25,10 @@ router.get('/id/:id', (req, res) => {
     }
 )
 
-router.get('/make/:make', (req, res) => {
+router.get('/make', (req, res) => {
     Car.findAll({
             where: {
-                make: req.params.make
+                make: req.query.make
             }
         })
         .then(cars => {
@@ -43,14 +43,15 @@ router.post('/add', (req, res) => {
     let errors = []
 
     if (!make) {
-        errors.push({text: "Please enter a make"})
+        errors.push("make")
     }
     if (!model) {
-        errors.push({text: "Please enter a model"})
+        errors.push("model")
     }
 
     if (errors.length > 0) {
-        res.send(errors)
+        res.status(500).send(`Missing data for ${errors}`)
+        return
     }
 
     Car.create({
@@ -63,7 +64,7 @@ router.post('/add', (req, res) => {
         .catch(err => console.log(err))
 })
 
-router.delete('delete/:id', (req, res) => {
+router.delete('/delete/:id', (req, res) => {
     Car.destroy({
             where: {
                 id: req.params.id
