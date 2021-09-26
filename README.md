@@ -1,6 +1,6 @@
 # Cars API 
 
-> API using Express and Sequelize
+API using Express and Sequelize
 
 ## Quick Start
 
