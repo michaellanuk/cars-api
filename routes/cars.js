@@ -21,11 +21,17 @@ router.get('/id/:id', (req, res) => {
     }
 )
 
-router.get('/make', (req, res) => {
+router.get('/search', (req, res) => {
+    var query = {}
+    if (req.query.make) {
+        query.make = req.query.make
+    }
+    if (req.query.model) {
+        query.model = req.query.model
+    }
+
     Car.findAll({
-            where: {
-                make: req.query.make
-            }
+            where: query
         })
         .then(cars => {
             res.send(cars)
