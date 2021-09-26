@@ -13,6 +13,8 @@ try {
 
 const app = express()
 
+app.use(express.json())
+
 app.get('/', (req, res) => res.send('Cars API index'))
 
 app.use('/cars', require('./routes/cars'))

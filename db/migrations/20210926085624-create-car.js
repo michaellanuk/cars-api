@@ -9,17 +9,14 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       make: {
+        allowNull: false,
         type: Sequelize.STRING
       },
       model: {
+        allowNull: false,
         type: Sequelize.STRING
       },
-      createdAt: {
-        type: Sequelize.DATE
-      },
-      updatedAt: {
-        type: Sequelize.DATE
-      },
+      // timestamp fields necessary for migrations
       createdAt: {
         allowNull: false,
         type: Sequelize.DATE
