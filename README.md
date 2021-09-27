@@ -1,6 +1,6 @@
 # Cars API 
 
-API using Express and Sequelize
+API using Express and Sequelize with MySQL
 
 ## Quick Start
 
@@ -8,10 +8,45 @@ API using Express and Sequelize
 # Install dependencies
 npm install
 
+# Configure MySQL database connection inside:
+- .sequelizerc
+- /db/config/config.json
+- /db/config/database.js
+
+# Run initial migrations
+npx sequelize-cli db:migrate
+
+# Execute seed file
+npx sequelize-cli db:seed:all
+
 # Serve on dev server with Nodemon
 npm run dev
 ```
 
+## Usage
+
+e.g., on http://localhost:5000
+
+### GET
+
+- All cars: `/cars`
+- Car by ID: `/cars/id/[id]`
+- Car by make/model/both: `cars/search?make=fiat&model=500` or `cars/search?make=fiat`
+
+### POST
+
+- Add car: `/cars/add` with JSON body 
+  ```
+  {
+    "make":"fiat",
+    "model":"500"
+  }
+  ```
+
+### DELETE
+
+- Delete car by ID: `/cars/delete/[id]`
+    
 ## App Info
 
 ### Author
