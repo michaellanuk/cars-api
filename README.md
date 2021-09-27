@@ -9,7 +9,6 @@ API using Express and Sequelize with MySQL
 npm install
 
 # Configure MySQL database connection inside:
-- .sequelizerc
 - /db/config/config.json
 - /db/config/database.js
 
