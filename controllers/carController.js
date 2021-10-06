@@ -91,8 +91,6 @@ const updateCar = async (req, res) => {
     })
 
     res.sendStatus(200)
-
-    // Route.post() requires a callback function but got a [object Undefined]
 }
 
 const deleteCarById = (req, res) => {
@@ -113,8 +111,3 @@ module.exports = {
     updateCar,
     deleteCarById
 }
-
-// Tests
-// Update endpoint
-// More meaningful responses
-// Better search e.g., SQL "like" operator, check sequelize docs
