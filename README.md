@@ -41,6 +41,13 @@ e.g., on http://localhost:5000
     "model":"500"
   }
   ```
+- Update car by ID: `/cars/update/[id]` with JSON body
+  ```
+  {
+    "make":"fiat",
+    "model":"500"
+  }
+  ```
 
 ### DELETE
 
