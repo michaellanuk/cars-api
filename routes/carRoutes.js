@@ -10,6 +10,8 @@ router.get('/search', controllers.getCarByMakeModel)
 
 router.post('/add', controllers.addNewCar)
 
+router.post('/update/:id', controllers.updateCar)
+
 router.delete('/delete/:id', controllers.deleteCarById)
 
 module.exports = router

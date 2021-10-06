@@ -1,9 +1,25 @@
 const Car = require('../db/models/car')
 
+const allowedFields = ["id", "makeModel"];
+
 const getAllCars = (req, res) => {
     Car.findAll()
         .then(cars => {
-            res.send(cars)
+            let carArr = cars.map(car => {
+                const makeModel = `${car.make}-${car.model}`;
+                let carCopy = {
+                    ...car.toJSON(),
+                    makeModel,
+                }
+                for (const [key, value] of Object.entries(carCopy)) {
+                    if (!allowedFields.includes(key)) {
+                        delete carCopy[key];
+                    }
+                }
+
+                return carCopy;
+            })
+            res.send(carArr)
         })
         .catch(err => console.log(err))
 }
@@ -11,9 +27,9 @@ const getAllCars = (req, res) => {
 
 const getCarById = (req, res) => {
     Car.findByPk(req.params.id)
-        .then(cars => {
-            if (cars !== null) {
-                res.send(cars)
+        .then(car => {
+            if (car !== null) {
+                res.send(car)
             } else {
                 res.send('No entries found')
             }
@@ -61,8 +77,22 @@ const addNewCar = (req, res) => {
     }
 
     Car.create({ make, model })
-        .then(car => res.redirect('/cars'))
+        .then(car => res.status(201).send(car))
         .catch(err => console.log(err))
+}
+
+const updateCar = async (req, res) => {
+    let { make, model } = req.body
+
+    let carToBeUpdated = await Car.findByPk(req.params.id)
+    
+    carToBeUpdated.update({ 
+        make, model
+    })
+
+    res.sendStatus(200)
+
+    // Route.post() requires a callback function but got a [object Undefined]
 }
 
 const deleteCarById = (req, res) => {
@@ -80,5 +110,11 @@ module.exports = {
     getCarById,
     getCarByMakeModel,
     addNewCar,
+    updateCar,
     deleteCarById
 }
+
+// Tests
+// Update endpoint
+// More meaningful responses
+// Better search e.g., SQL "like" operator, check sequelize docs
